@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1001508282232",
+    "project_id": "bdesktop-e1fa2",
+    "storage_bucket": "bdesktop-e1fa2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1001508282232:android:ed3a8f837218344004728d",
+        "android_client_info": {
+          "package_name": "com.example.firebasedeploy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQcwG0SjK2rsP1yrxgIZL3g7udesnkB2Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1001508282232:android:c491ff7936dd5ad804728d",
+        "android_client_info": {
+          "package_name": "com.patient.patientapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQcwG0SjK2rsP1yrxgIZL3g7udesnkB2Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

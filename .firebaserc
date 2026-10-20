@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "quickcare-e983a",
+    "production": "quickcare-e983a"
+  },
+  "targets": {},
+  "etags": {}
+}
