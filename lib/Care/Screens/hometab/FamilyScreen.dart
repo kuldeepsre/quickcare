@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:patientapp/Care/provider/FamilyProvider.dart';
 import 'package:patientapp/Care/widget/family_card.dart';
 import 'package:provider/provider.dart';
 
@@ -50,24 +51,27 @@ class FamilyScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               // Card 1 - You
-              const FamilyCard(
-                initials: 'AK',
-                name: 'Arjun Kapor',
-                subtitle: 'You',
-                bookings: '2',
-                records: '8',
-                bgColor: Color(0xFF0E4A3E),
-              ),
-              const SizedBox(height: 16),
-              // Card 2 - Mother
-              const FamilyCard(
-                initials: 'SK',
-                name: 'Sunita Kapor',
-                subtitle: 'Mother · 62 years',
-                bookings: '2',
-                records: '8',
-                bgColor: Color(0xFFC07A6F),
-              ),
+        Consumer<FamilyProvider>(
+          builder: (context, familyProvider, child) {
+            return ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(), // remove if it's a full screen list
+              itemCount: familyProvider.members.length,
+              separatorBuilder: (context, index) => const SizedBox(height: 16),
+              itemBuilder: (context, index) {
+                final member = familyProvider.members[index];
+                return FamilyCard(
+                  initials: member.initials,
+                  name: member.name,
+                  subtitle: member.subtitle,
+                  bookings: member.bookings,
+                  records: member.records,
+                  bgColor: member.bgColor,
+                );
+              },
+            );
+          },
+        ),
             ],
           ),
         ),

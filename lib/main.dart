@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:patientapp/Care/Screens/MainNavigationScreen.dart';
 import 'package:patientapp/Care/Screens/notification_screen.dart';
 import 'package:patientapp/Care/Screens/splash_screen.dart';
+import 'package:patientapp/Care/provider/FamilyProvider.dart';
 import 'package:patientapp/Care/provider/booking_provider.dart';
 import 'package:patientapp/Care/provider/health_records_provider.dart';
 import 'package:patientapp/Care/provider/location_provider.dart';
+import 'package:patientapp/Care/provider/navigation_provider.dart';
 import 'package:patientapp/Care/provider/notification_provider.dart';
 import 'package:patientapp/Care/provider/otp_provider.dart';
 import 'package:patientapp/Crew/crew_main_navigation.dart';
@@ -52,12 +54,16 @@ Future<void> main() async {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (_) => NavigationProvider(),
+        ),
         ChangeNotifierProvider(create: (_) => LanguageProvider()),
         ChangeNotifierProvider.value(value: notificationProvider,),
         ChangeNotifierProvider(create: (_) => OtpProvider(),),
         ChangeNotifierProvider(create: (_) => HealthRecordsProvider(),),
         ChangeNotifierProvider(create: (_) => BookingProvider(),),
         ChangeNotifierProvider(create: (_) => LocationProvider()), // ADD THIS
+        ChangeNotifierProvider(create: (_) => FamilyProvider()), // ADD THIS
 
       ],
       child: const CareApp(),

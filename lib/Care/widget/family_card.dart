@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:patientapp/Care/provider/navigation_provider.dart';
+import 'package:provider/provider.dart';
 
 class FamilyCard extends StatelessWidget {
   final String initials;
@@ -113,7 +116,9 @@ class FamilyCard extends StatelessWidget {
           const Divider(color: Color(0xFFEFF4F1), height: 1),
           const SizedBox(height: 16),
           OutlinedButton(
-            onPressed: () {},
+            onPressed: () {
+              context.read<NavigationProvider>().changePage(4);
+            },
             style: OutlinedButton.styleFrom(
               side: const BorderSide(color: Color(0xFFE0E8E5)),
               shape: RoundedRectangleBorder(
