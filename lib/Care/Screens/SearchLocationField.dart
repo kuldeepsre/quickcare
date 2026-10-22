@@ -40,50 +40,57 @@ class _SearchLocationFieldState extends State<SearchLocationField> {
       mainAxisSize: MainAxisSize.min,
       children: [
         // 1. TextField - NOT inside Consumer
-      /*  TextFormField(
-          controller: _controller,
-          focusNode: _focusNode,
-          onChanged: (val) {
-            if (val.trim().isEmpty) {
-              context.read<LocationProvider>().clearSearch();
-            } else {
-              context.read<LocationProvider>().searchPlaces(val);
-            }
-            setState(() {}); // only to show/hide clear button
-          },
-          decoration: InputDecoration(
-            hintText: 'Search location, e.g. Delhi, Mumbai',
-            prefixIcon: const Icon(Icons.search, color: Colors.teal),
-            suffixIcon: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (_controller.text.isNotEmpty)
-                  IconButton(
-                    icon: const Icon(Icons.clear, size: 20),
-                    onPressed: () {
-                      _controller.clear();
-                      context.read<LocationProvider>().clearSearch();
-                      setState(() {});
-                    },
-                  ),
-                // Loading - separate Consumer
-                Consumer<LocationProvider>(
-                  builder: (_, loc, __) => loc.isLoading
-                      ? const Padding(
-                    padding: EdgeInsets.all(12),
-                    child: SizedBox(width: 14, height: 14, child: CircularProgressIndicator(strokeWidth: 2)),
-                  )
-                      : const SizedBox.shrink(),
-                ),
-              ],
-            ),
-            filled: true,
-            fillColor: Colors.white,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Colors.grey.shade300)),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-          ),
-        ),*/
         Consumer<LocationProvider>(
+          builder: (_, loc, __) {
+            return TextFormField(
+              key: ValueKey(loc.address),
+              initialValue: loc.address,
+          /*    controller: _controller,*/
+              focusNode: _focusNode,
+              onChanged: (val) {
+                if (val.trim().isEmpty) {
+                  context.read<LocationProvider>().clearSearch();
+                } else {
+                  context.read<LocationProvider>().searchPlaces(val);
+                }
+
+                setState(() {}); // only to show/hide clear button
+              },
+              decoration: InputDecoration(
+                hintText: 'Search location, e.g. Delhi, Mumbai',
+                prefixIcon: const Icon(Icons.search, color: Colors.teal),
+                suffixIcon: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (_controller.text.isNotEmpty)
+                      IconButton(
+                        icon: const Icon(Icons.clear, size: 20),
+                        onPressed: () {
+                          _controller.clear();
+                          context.read<LocationProvider>().clearSearch();
+                          setState(() {});
+                        },
+                      ),
+                    // Loading - separate Consumer
+                    Consumer<LocationProvider>(
+                      builder: (_, loc, __) => loc.isLoading
+                          ? const Padding(
+                        padding: EdgeInsets.all(12),
+                        child: SizedBox(width: 14, height: 14, child: CircularProgressIndicator(strokeWidth: 2)),
+                      )
+                          : const SizedBox.shrink(),
+                    ),
+                  ],
+                ),
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Colors.grey.shade300)),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+              ),
+            );
+          }
+        ),
+    /*    Consumer<LocationProvider>(
           builder: (_, loc, __) {
             return TextFormField(
               // key forces rebuild when address changes
@@ -93,8 +100,11 @@ class _SearchLocationFieldState extends State<SearchLocationField> {
               maxLines: 2,
               minLines: 1,
               onChanged: (val) {
-                // If user edits manually, update provider
-               // context.read<LocationProvider>().updateAddress(val);
+                if (val.trim().isEmpty) {
+                  context.read<LocationProvider>().clearSearch();
+                } else {
+                  context.read<LocationProvider>().searchPlaces(val);
+                }
               },
               decoration: InputDecoration(
                 prefixIcon: const Icon(Icons.location_on, size: 18, color: Colors.teal),
@@ -115,7 +125,7 @@ class _SearchLocationFieldState extends State<SearchLocationField> {
               style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
             );
           },
-        ),
+        ),*/
         // 2. Search Results - Separate Consumer + fixed max height
         Consumer<LocationProvider>(
           builder: (context, loc, _) {

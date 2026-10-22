@@ -5,6 +5,7 @@ import 'package:patientapp/Care/Screens/MainNavigationScreen.dart';
 import 'package:patientapp/Care/Screens/notification_screen.dart';
 import 'package:patientapp/Care/Screens/splash_screen.dart';
 import 'package:patientapp/Care/provider/FamilyProvider.dart';
+import 'package:patientapp/Care/provider/ScheduleProvider.dart';
 import 'package:patientapp/Care/provider/booking_provider.dart';
 import 'package:patientapp/Care/provider/health_records_provider.dart';
 import 'package:patientapp/Care/provider/location_provider.dart';
@@ -64,6 +65,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => BookingProvider(),),
         ChangeNotifierProvider(create: (_) => LocationProvider()), // ADD THIS
         ChangeNotifierProvider(create: (_) => FamilyProvider()), // ADD THIS
+        ChangeNotifierProvider(create: (_) => ScheduleProvider()), // ADD THIS
 
       ],
       child: const CareApp(),

@@ -137,6 +137,18 @@ class LanguageProvider extends ChangeNotifier {
       'Family': 'Family',
       'ManageCare': 'Manage care for the people who matter most',
       'Addfamilymember': 'Add family member',
+      // new Booking
+      'Chooseschedule': 'Choose a schedule',
+      'Continuetoschedule': 'Continue to schedule',
+      'needcare': 'Where do you need care?',
+      'confirmLocation': 'Confirm your pickup or care location.',
+      'availableTimes': 'Available times',
+      'confirmBooking': 'Confirm booking',
+      'bookingConfirmed':'BOOKING CONFIRMED',
+      'ontheWayCare':'Your care is on the way',
+      'Bookingreference':'Booking reference',
+      'done':'Done',
+      'newbooking':'NEW BOOKING',
     },
 
     'हिन्दी': {

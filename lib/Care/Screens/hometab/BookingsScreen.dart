@@ -6,6 +6,7 @@ import 'package:patientapp/Care/widget/CustomTab.dart';
 import 'package:patientapp/Care/widget/booking_card.dart';
 import 'package:patientapp/Care/widget/new_booking.dart';
 import 'package:patientapp/utils/AppColors.dart';
+import 'package:patientapp/utils/constants.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/LanguageProvider.dart';
@@ -47,11 +48,15 @@ class _BookingsScreenState extends State<BookingsScreen> {
                 'Track and manage your care appointments',
                 style: TextStyle(fontSize: 14, color: AppColors.textGrey),
               ),
+
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () => showDialog(
+                onPressed: () =>showDialog(
                   context: context,
-                  builder: (_) => const NewBookingFlow(),
+                  builder: (context) {
+                    Constants.booking_heading = "bookAmbulance";
+                    return const NewBookingFlow();
+                  },
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,

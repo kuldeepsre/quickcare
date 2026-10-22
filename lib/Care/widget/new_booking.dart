@@ -1,17 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
+
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:patientapp/Care/Screens/SearchLocationField.dart';
-import 'package:patientapp/Care/provider/location_provider.dart';
-import 'package:patientapp/Care/widget/booking_card.dart';
-import 'package:patientapp/Care/widget/date_chip.dart';
+import 'package:patientapp/Care/provider/LanguageProvider.dart';
+import 'package:patientapp/Care/provider/ScheduleProvider.dart';
+
 import 'package:patientapp/Care/widget/primary_button.dart';
-import 'package:patientapp/Care/widget/real_map_picker.dart';
+
 import 'package:patientapp/Care/widget/stepper_widget.dart';
 import 'package:patientapp/Care/widget/time_chip.dart';
 import 'package:patientapp/utils/AppColors.dart';
+import 'package:patientapp/utils/constants.dart';
 import 'package:provider/provider.dart';
 
 class NewBookingFlow extends StatefulWidget {
@@ -44,23 +45,13 @@ class _NewBookingFlowState extends State<NewBookingFlow> {
 
   @override
   Widget build(BuildContext context) {
+    final langProvider=context.watch<LanguageProvider>();
     return Dialog(
       backgroundColor: Colors.white, // <-- here
-      insetPadding: const EdgeInsets.all(16),
+      insetPadding: const EdgeInsets.all(5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      child: Container(
-
-        margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.08),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-        ),
-        padding: EdgeInsets.fromLTRB(
-          20,
-          20,
-          20,
-          32 + MediaQuery.of(context).viewInsets.bottom,
-        ),
+      child:  Padding(
+        padding: const EdgeInsets.all(15.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,11 +59,11 @@ class _NewBookingFlowState extends State<NewBookingFlow> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Column(
+                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'NEW BOOKING',
+                        langProvider.translate('newbooking'),
                         style: TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w700,
@@ -82,7 +73,8 @@ class _NewBookingFlowState extends State<NewBookingFlow> {
                       ),
                       SizedBox(height: 6),
                       Text(
-                        'Ambulance',
+                        langProvider.translate(Constants.booking_heading)
+                       ,
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
@@ -110,12 +102,12 @@ class _NewBookingFlowState extends State<NewBookingFlow> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Where do you need care?',
+                     Text(
+                      langProvider.translate('needcare'),
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                     ),
-                    const Text(
-                      'Confirm your pickup or care location.',
+                     Text(langProvider.translate('confirmLocation')
+                      ,
                       style: TextStyle(fontSize: 13, color: AppColors.textGrey),
                     ),
                     const SizedBox(height: 16),
@@ -128,74 +120,120 @@ class _NewBookingFlowState extends State<NewBookingFlow> {
                         ),
                       ),
                       child:
-                          const SearchLocationField(), // DONE - Search + Map + Auto Address
+                      const SearchLocationField(), // DONE - Search + Map + Auto Address
                     ),
                     const SizedBox(height: 20),
                     PrimaryButton(
-                      text: 'Continue to schedule',
+                      text:langProvider.translate('Continuetoschedule'),
                       onTap: () => setState(() => step = 2),
                     ),
                   ],
                 ),
               if (step == 2)
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Choose a schedule',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
+                Consumer<ScheduleProvider>(
+                  builder: (context, provider, _) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        DateChip(
-                          label: 'Today',
-                          day: '18',
-                          selected: selectedDate == 18,
-                          onTap: () => setState(() => selectedDate = 18),
+                         Text(
+                          langProvider.translate('Chooseschedule'),
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                         ),
-                        const SizedBox(width: 8),
-                        DateChip(
-                          label: 'Tomorrow',
-                          day: '19',
-                          selected: selectedDate == 19,
-                          onTap: () => setState(() => selectedDate = 19),
+                        const SizedBox(height: 16),
+                        // DATES - from provider.dates (List<DateModel>)
+                        if (provider.isLoadingDate)
+                          const SizedBox(height: 50, child: Center(child: CircularProgressIndicator()))
+                        else
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            physics: const BouncingScrollPhysics(),
+                            padding: const EdgeInsets.symmetric(horizontal: 4),
+                            child: Row(
+                              children: provider.dates.map((dateObj) {
+                                final isSelected = provider.selectedDate?.value == dateObj.value;
+                                return Padding(
+                                  padding: const EdgeInsets.only(right: 12),
+                                  child: GestureDetector(
+                                    onTap: () => provider.fetchTimes(dateObj),
+                                    child: AnimatedContainer(
+                                      duration: const Duration(milliseconds: 250),
+                                      width: 72,
+                                      padding: const EdgeInsets.symmetric(vertical: 12),
+                                      decoration: BoxDecoration(
+                                        color: isSelected ? AppColors.primary : const Color(0xFFF5F5F5),
+                                        borderRadius: BorderRadius.circular(16),
+                                        border: Border.all(
+                                          color: isSelected ? AppColors.primary : Colors.transparent,
+                                          width: 1.5,
+                                        ),
+                                      ),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            dateObj.label.toUpperCase(),
+                                            style: TextStyle(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w600,
+                                              letterSpacing: 0.5,
+                                              color: isSelected ? Colors.white70 : Colors.grey,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 6),
+                                          Text(
+                                            dateObj.day,
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w800,
+                                              color: isSelected ? Colors.white : Colors.black,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 6),
+                                          // Dot indicator
+                                          Container(
+                                            height: 4,
+                                            width: 4,
+                                            decoration: BoxDecoration(
+                                              color: isSelected ? Colors.white : Colors.transparent,
+                                              shape: BoxShape.circle,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        const SizedBox(height: 18),
+                         Text(langProvider.translate('availableTimes'),
+                          style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
                         ),
-                        const SizedBox(width: 8),
-                        DateChip(
-                          label: '20 Jun',
-                          day: '20',
-                          selected: selectedDate == 20,
-                          onTap: () => setState(() => selectedDate = 20),
+                        const SizedBox(height: 8),
+                        // TIMES - from provider.times (List<TimeModel>)
+                        if (provider.isLoadingTime)
+                          const CircularProgressIndicator(strokeWidth: 2)
+                        else
+                          Wrap(
+                            spacing: 8,
+                            runSpacing: 8,
+                            children: provider.times.map((timeObj) {
+                              return TimeChip(
+                                label: timeObj.label,
+                                selected: provider.selectedTime?.value == timeObj.value,
+                                onTap: () => provider.selectTime(timeObj),
+                              );
+                            }).toList(),
+                          ),
+                        const SizedBox(height: 20),
+                        PrimaryButton(
+                          text: langProvider.translate('confirmBooking'),
+                          onTap: () => setState(() => step = 3),
                         ),
                       ],
-                    ),
-                    const SizedBox(height: 18),
-                    const Text(
-                      'Available times',
-                      style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
-                    ),
-                    const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children:
-                          ['9:00 AM', '10:30 AM', '12:00 PM', '3:30 PM']
-                              .map(
-                                (t) => TimeChip(
-                                  label: t,
-                                  selected: selectedTime == t,
-                                  onTap: () => setState(() => selectedTime = t),
-                                ),
-                              )
-                              .toList(),
-                    ),
-                    const SizedBox(height: 20),
-                    PrimaryButton(
-                      text: 'Confirm booking',
-                      onTap: () => setState(() => step = 3),
-                    ),
-                  ],
+                    );
+                  },
                 ),
               if (step == 3)
                 Column(
@@ -224,8 +262,8 @@ class _NewBookingFlowState extends State<NewBookingFlow> {
                       ),
                     ),
                     const SizedBox(height: 18),
-                    const Text(
-                      'BOOKING CONFIRMED',
+                     Text(langProvider.translate('bookingConfirmed'),
+
                       style: TextStyle(
                         fontSize: 11,
                         fontWeight: FontWeight.w700,
@@ -233,8 +271,8 @@ class _NewBookingFlowState extends State<NewBookingFlow> {
                         color: AppColors.primary,
                       ),
                     ),
-                    const Text(
-                      'Your care is on the way',
+                     Text(langProvider.translate('ontheWayCare'),
+
                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
                     ),
                     const SizedBox(height: 20),
@@ -247,11 +285,10 @@ class _NewBookingFlowState extends State<NewBookingFlow> {
                         color: AppColors.bg,
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Row(
+                      child:  Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            'Booking reference',
+                          Text(langProvider.translate('Bookingreference'),
                             style: TextStyle(
                               fontSize: 11,
                               color: AppColors.textGrey,
@@ -270,7 +307,7 @@ class _NewBookingFlowState extends State<NewBookingFlow> {
                     ),
                     const SizedBox(height: 16),
                     PrimaryButton(
-                      text: 'Done',
+                      text: langProvider.translate('done'),
                       onTap: () => Navigator.pop(context),
                     ),
                   ],
