@@ -22,10 +22,9 @@ class ConvenienceGrid extends StatelessWidget {
           children:  [
             GestureDetector(
                 onTap: (){
-
                   showDialog(
                   context: context,
-                  barrierDismissible: true,
+                  barrierDismissible: false,
                   builder: (context) {
                     return NewBookingFlow();
                   },

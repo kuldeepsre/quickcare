@@ -172,6 +172,7 @@ class LanguageProvider extends ChangeNotifier {
       'upcoming_booking':'Upcoming booking',
       'view_all':'View all',
       'next_scheduled':'Your next scheduled care',
+      'confirmations':'We’ve received your request. You’ll get a confirmation and provider details shortly.',
 
 
     },
