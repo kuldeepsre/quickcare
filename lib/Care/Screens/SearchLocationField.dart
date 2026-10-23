@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:patientapp/Care/provider/LanguageProvider.dart';
 import 'package:patientapp/Care/provider/location_provider.dart';
 import 'package:patientapp/Care/widget/real_map_picker.dart';
 import 'package:patientapp/utils/AppColors.dart';
@@ -36,6 +37,7 @@ class _SearchLocationFieldState extends State<SearchLocationField> {
 
   @override
   Widget build(BuildContext context) {
+     final langProvider=context.watch<LanguageProvider>();
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -57,7 +59,7 @@ class _SearchLocationFieldState extends State<SearchLocationField> {
                 setState(() {}); // only to show/hide clear button
               },
               decoration: InputDecoration(
-                hintText: 'Search location, e.g. Delhi, Mumbai',
+                hintText:langProvider.translate('Search') ,
                 prefixIcon: const Icon(Icons.search, color: Colors.teal),
                 suffixIcon: Row(
                   mainAxisSize: MainAxisSize.min,

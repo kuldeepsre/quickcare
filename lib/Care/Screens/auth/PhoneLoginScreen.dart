@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:patientapp/Care/Screens/auth/otp_verification_screen.dart';
 import 'package:patientapp/utils/AppColors.dart';
 import 'package:patientapp/utils/constants.dart';
@@ -16,7 +17,7 @@ class PhoneLoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final langProvider = context.watch<LanguageProvider>();
     final phoneController = TextEditingController();
-
+    final _formKey = GlobalKey<FormState>();
     return Scaffold(
    /*   appBar: AppBar(
         backgroundColor: Colors.white,
@@ -68,76 +69,120 @@ class PhoneLoginScreen extends StatelessWidget {
       ),*/
       body: Padding(
         padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 20),
-            Text(
-              langProvider.translate('loginTitle'),
-              style: const TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20),
+              Text(
+                langProvider.translate('loginTitle'),
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
               ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              langProvider.translate('loginSubtitle'),
-              style: const TextStyle(fontSize: 13, color: Colors.grey),
-            ),
-            const SizedBox(height: 30),
-            TextField(
-              controller: phoneController,
-              maxLength: 10,
-              keyboardType: TextInputType.phone,
-              decoration: InputDecoration(
-                prefixIcon: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text('🇮🇳 +91', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-                      SizedBox(width: 8),
-                      Text('|', style: TextStyle(color: Colors.grey)),
-                    ],
+              const SizedBox(height: 8),
+              Text(
+                langProvider.translate('loginSubtitle'),
+                style: const TextStyle(fontSize: 13, color: Colors.grey),
+              ),
+              const SizedBox(height: 30),
+              TextFormField(
+                controller: phoneController,
+                maxLength: 10,
+                keyboardType: TextInputType.phone,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(10),
+                ],
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Please enter your mobile number';
+                  }
+
+                  if (value.length != 10) {
+                    return context.watch<LanguageProvider>().translate('valid_mobile');
+                  }
+
+                  if (!RegExp(r'^[6-9]\d{9}$').hasMatch(value)) {
+                    return context.watch<LanguageProvider>().translate('valid_indian_mobile');
+                  }
+
+                  return null;
+                },
+                decoration: InputDecoration(
+                  prefixIcon: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 12),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          '🇮🇳 +91',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                        Text('|', style: TextStyle(color: Colors.grey)),
+                      ],
+                    ),
+                  ),
+                  hintText: langProvider.translate('phoneHint'),
+                  counterText: '',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey.shade300),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                      color: Color(0xFF007A55),
+                      width: 2,
+                    ),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Colors.red),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Colors.red, width: 2),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+              ),
+              const Spacer(),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      Constants.phoneNo=phoneController.text.trim();
+                      AppRoute.to(context, const OtpVerificationScreen());
+                    }
+
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primaryGreen,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    elevation: 0,
+                  ),
+                  child: Text(
+                    langProvider.translate('continueBtn'),
+                    style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                   ),
                 ),
-                hintText: langProvider.translate('phoneHint'),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: Colors.grey.shade300),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Color(0xFF007A55), width: 2),
-                ),
-                filled: true,
-                fillColor: Colors.white,
               ),
-            ),
-            const Spacer(),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  Constants.phoneNo=phoneController.text.trim();
-                  AppRoute.to(context, const OtpVerificationScreen());
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primaryGreen,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  elevation: 0,
-                ),
-                child: Text(
-                  langProvider.translate('continueBtn'),
-                  style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-          ],
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );

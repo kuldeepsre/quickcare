@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:patientapp/Care/Screens/MainNavigationScreen.dart';
 import 'package:patientapp/Care/provider/LanguageProvider.dart';
 import 'package:patientapp/Care/provider/otp_provider.dart';
@@ -67,7 +68,18 @@ class _OtpVerificationScreenState
     }
   }
 
-  Future<void> _verifyOtp(OtpProvider provider) async {
+  Future<void> _verifyOtp(OtpProvider provider, LanguageProvider langProvider) async {
+
+    final otp = _controllers.map((controller) => controller.text).join();
+
+    if (otp.length != 4 || !RegExp(r'^\d{4}$').hasMatch(otp)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+         SnackBar(
+          content: Text(langProvider.translate('otp_validation')),
+        ),
+      );
+      return;
+    }
     final success = await provider.verifyOtp(
       phoneNumber: Constants.phoneNo,
     );
@@ -219,12 +231,17 @@ class _OtpVerificationScreenState
                         keyboardType: TextInputType.number,
                         textAlign: TextAlign.center,
                         maxLength: 1,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(1),
+                        ],
                         style: const TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
                         decoration: InputDecoration(
                           counterText: '',
+                          errorText: null,
                           filled: true,
                           fillColor: Colors.white,
                           border: OutlineInputBorder(
@@ -248,7 +265,7 @@ class _OtpVerificationScreenState
                             _onDigitChanged(value, index, otpProvider),
                         onSubmitted: (_) {
                           if (index == 3) {
-                            _verifyOtp(otpProvider);
+                            _verifyOtp(otpProvider,langProvider);
                           }
                         },
                       ),
@@ -284,7 +301,7 @@ class _OtpVerificationScreenState
                   child: ElevatedButton(
                     onPressed: otpProvider.isVerifying
                         ? null
-                        : () => _verifyOtp(otpProvider),
+                        : () => _verifyOtp(otpProvider,langProvider),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: primaryColor,
                       foregroundColor: Colors.white,

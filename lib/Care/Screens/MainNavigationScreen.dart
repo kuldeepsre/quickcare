@@ -4,7 +4,10 @@ import 'package:patientapp/Care/Screens/auth/PhoneLoginScreen.dart';
 import 'package:patientapp/Care/Screens/hometab/my_profile.dart';
 import 'package:patientapp/Care/provider/navigation_provider.dart';
 import 'package:patientapp/Care/widget/LanguageSelectorWidget.dart';
+import 'package:patientapp/Care/widget/logout_dialog.dart';
+import 'package:patientapp/utils/AppColors.dart';
 import 'package:patientapp/utils/AppRoute.dart';
+import 'package:patientapp/utils/SessionManager.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/LanguageProvider.dart';
@@ -243,21 +246,19 @@ class MainNavigationScreen extends StatelessWidget {
                 color: const Color(0xFF0E3D33),
                 borderRadius: BorderRadius.circular(18),
               ),
-              child: const Column(
+              child:  Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Icon(Icons.call_outlined, color: Colors.white),
                   SizedBox(height: 12),
-                  Text(
-                    'NEED HELP?',
+                  Text(language.translate('need_help'),
                     style: TextStyle(
                       color: Colors.white70,
                       fontSize: 10,
                     ),
                   ),
                   SizedBox(height: 6),
-                  Text(
-                    'Care team available\n24/7',
+                  Text(language.translate('Careteam'),
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 14,
@@ -265,8 +266,7 @@ class MainNavigationScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 12),
-                  Text(
-                    'Call support  ›',
+                  Text(language.translate('call_support'),
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 12,
@@ -278,7 +278,7 @@ class MainNavigationScreen extends StatelessWidget {
 
             const Divider(height: 1, color: Color(0xFFEFF4F1)),
 
-            const ListTile(
+             ListTile(
               leading: CircleAvatar(
                 backgroundColor: Color(0xFFE2F0E9),
                 child: Text(
@@ -290,9 +290,51 @@ class MainNavigationScreen extends StatelessWidget {
                 'Arjun Kapor',
                 style: TextStyle(fontSize: 12),
               ),
+
               subtitle: Text(
                 'Patient ID: QC-2048',
                 style: TextStyle(fontSize: 10),
+              ),
+
+            ),
+            Container(
+              decoration: BoxDecoration(
+                color:AppColors.surfaceWhite,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: ListTile(
+                leading: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color:AppColors.red.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child:  Icon(Icons.logout, color:AppColors.red, size: 20),
+                ),
+                title: Text(
+                  language.translate('logout'),
+                  style: const TextStyle(
+                    color: AppColors.red,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                trailing: const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 14,
+                  color: AppColors.red,
+                ),
+                onTap:
+                    () => LogoutDialog.show(
+                    context,
+                    onConfirm:
+                        () async {
+                      await SessionManager.clearSession();
+                      AppRoute.toAndRemoveUntil(
+                        context,
+                        const PhoneLoginScreen(),
+                      );
+                    }
+                ),
               ),
             ),
           ],
@@ -309,7 +351,6 @@ class MainNavigationScreen extends StatelessWidget {
         required int selectedIndex,
       }) {
     final selected = index == selectedIndex;
-
     return Container(
       margin: const EdgeInsets.symmetric(
         horizontal: 8,

@@ -149,6 +149,31 @@ class LanguageProvider extends ChangeNotifier {
       'Bookingreference':'Booking reference',
       'done':'Done',
       'newbooking':'NEW BOOKING',
+      //Notifications
+      'Notifications':'Notifications',
+      'MarkAllRead':'Mark all as read',
+      'ClearAll':'Clear all',
+      'NoNotifications':'No notifications yet',
+      'UnableDelete':'Unable to delete notification',
+      'UnableMark':'Unable to mark as read',
+      //Records screen
+      'NoRecords':'No records found',
+      'Search':'Search location, e.g. Delhi, Mumbai',
+      'otp_validation':'Please enter the complete 4-digit OTP',
+      'valid_mobile':'Please enter your mobile number',
+      'valid_indian_mobile':'Please enter a valid Indian mobile number',
+      'call_support':'Call support  ›',
+      'Careteam':'Care team available\n24/7',
+      'need_help':'NEED HELP?',
+      'request_now':'request Now',
+      'emergency_assistant':'EMERGENCY ASSISTANCE',
+      'need_ambulance':'Need an ambulance right now',
+      'nearest':'Our nearest verified ambulance can reach you quickly.',
+      'upcoming_booking':'Upcoming booking',
+      'view_all':'View all',
+      'next_scheduled':'Your next scheduled care',
+
+
     },
 
     'हिन्दी': {

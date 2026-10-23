@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:patientapp/Care/provider/LanguageProvider.dart';
 import 'package:patientapp/Care/provider/navigation_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -9,6 +10,7 @@ class UpcomingBookingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final  language=context.watch<LanguageProvider>();
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -22,16 +24,16 @@ class UpcomingBookingCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children:  [
-              Text('Upcoming booking', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+              Text(language.translate('upcoming_booking'), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               GestureDetector(
                   onTap: (){
                     context.read<NavigationProvider>().changePage(1);
                   },
-                  child: Text('View all', style: TextStyle(color: Color(0xFF0F3E33), fontSize: 13, fontWeight: FontWeight.w600))),
+                  child: Text(language.translate('view_all'), style: TextStyle(color: Color(0xFF0F3E33), fontSize: 13, fontWeight: FontWeight.w600))),
             ],
           ),
           const SizedBox(height: 4),
-          Text('Your next scheduled care', style: TextStyle(color: Colors.grey[600], fontSize: 12)),
+          Text(language.translate('next_scheduled'), style: TextStyle(color: Colors.grey[600], fontSize: 12)),
           const SizedBox(height: 16),
           Container(
             padding: const EdgeInsets.all(16),

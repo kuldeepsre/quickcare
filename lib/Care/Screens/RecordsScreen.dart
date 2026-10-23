@@ -150,8 +150,7 @@ class HealthRecordsScreen extends StatelessWidget {
                               color: Colors.grey.shade400,
                             ),
                             const SizedBox(height: 10),
-                            const Text(
-                              'No records found',
+                             Text(langProvider.translate('NoRecords'),
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w600,

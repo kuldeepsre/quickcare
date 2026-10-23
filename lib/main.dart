@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:patientapp/Care/Screens/MainNavigationScreen.dart';
+
 import 'package:patientapp/Care/Screens/notification_screen.dart';
 import 'package:patientapp/Care/Screens/splash_screen.dart';
 import 'package:patientapp/Care/provider/FamilyProvider.dart';
@@ -12,10 +12,11 @@ import 'package:patientapp/Care/provider/location_provider.dart';
 import 'package:patientapp/Care/provider/navigation_provider.dart';
 import 'package:patientapp/Care/provider/notification_provider.dart';
 import 'package:patientapp/Care/provider/otp_provider.dart';
-import 'package:patientapp/Crew/crew_main_navigation.dart';
+
 import 'package:patientapp/firebase_options.dart';
 import 'package:patientapp/utils/push_notification_service.dart';
-import 'package:provider/provider.dart';import 'Care/Screens/auth/PhoneLoginScreen.dart';
+import 'package:provider/provider.dart';
+
 import 'Care/provider/LanguageProvider.dart';
 import 'Care/widget/network_status_widget.dart';
 
@@ -35,6 +36,7 @@ final GlobalKey<NavigatorState> navigatorKey =
 GlobalKey<NavigatorState>();
 
 Future<void> main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -78,7 +80,7 @@ class CareApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'क्विककेयर',
+      title: 'quickcare',
 
         navigatorKey: appNavigatorKey,
         debugShowCheckedModeBanner: false,

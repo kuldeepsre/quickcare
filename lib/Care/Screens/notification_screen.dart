@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:patientapp/Care/provider/LanguageProvider.dart';
 import 'package:patientapp/Care/provider/notification_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -8,9 +9,10 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final langProvider=context.watch<LanguageProvider>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Notifications'),
+        title:  Text(langProvider.translate('Notifications')),
         actions: [
           Consumer<NotificationProvider>(
             builder: (context, provider, child) {
@@ -32,14 +34,14 @@ class NotificationScreen extends StatelessWidget {
                     }
                   }
                 },
-                itemBuilder: (context) => const [
+                itemBuilder: (context) =>  [
                   PopupMenuItem(
                     value: 'read',
-                    child: Text('Mark all as read'),
+                    child: Text(langProvider.translate('MarkAllRead')),
                   ),
                   PopupMenuItem(
                     value: 'clear',
-                    child: Text('Clear all'),
+                    child: Text(langProvider.translate('ClearAll')),
                   ),
                 ],
               );
@@ -56,7 +58,7 @@ class NotificationScreen extends StatelessWidget {
           }
 
           if (provider.notifications.isEmpty) {
-            return const Center(
+            return  Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -66,7 +68,7 @@ class NotificationScreen extends StatelessWidget {
                     color: Colors.grey,
                   ),
                   SizedBox(height: 12),
-                  Text('No notifications yet'),
+                  Text(langProvider.translate('NoNotifications')),
                 ],
               ),
             );
@@ -96,8 +98,8 @@ class NotificationScreen extends StatelessWidget {
                   } catch (_) {
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Unable to delete notification'),
+                         SnackBar(
+                          content: Text(langProvider.translate('UnableDelete')),
                         ),
                       );
                     }
@@ -158,8 +160,8 @@ class NotificationScreen extends StatelessWidget {
                     } catch (_) {
                       if (context.mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Unable to mark as read'),
+                           SnackBar(
+                            content: Text(langProvider.translate('UnableMark')),
                           ),
                         );
                       }
