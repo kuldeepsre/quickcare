@@ -36,7 +36,7 @@ class ScheduleProvider extends ChangeNotifier {
         } else if (index == 1) {
           label = 'TOMORROW';
         } else {
-          const weekdays = [
+/*          const weekdays = [
             'MON',
             'TUE',
             'WED',
@@ -46,8 +46,14 @@ class ScheduleProvider extends ChangeNotifier {
             'SUN',
           ];
 
-          label = weekdays[date.weekday - 1];
-        }
+          label = weekdays[date.weekday - 1];*/
+          const months = [
+            'JAN', 'FEB', 'MAR', 'APR',
+            'MAY', 'JUN', 'JUL', 'AUG',
+            'SEP', 'OCT', 'NOV', 'DEC',
+          ];
+
+          label = '${months[date.month - 1]} ${date.day}';        }
 
         final fullDate =
             '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';

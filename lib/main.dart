@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:patientapp/Care/Screens/notification_screen.dart';
 import 'package:patientapp/Care/Screens/splash_screen.dart';
 import 'package:patientapp/Care/provider/FamilyProvider.dart';
+import 'package:patientapp/Care/provider/Phone_Auth_Provider.dart';
 import 'package:patientapp/Care/provider/ScheduleProvider.dart';
 import 'package:patientapp/Care/provider/booking_provider.dart';
 import 'package:patientapp/Care/provider/health_records_provider.dart';
@@ -61,6 +62,7 @@ Future<void> main() async {
           create: (_) => NavigationProvider(),
         ),
         ChangeNotifierProvider(create: (_) => LanguageProvider()),
+        ChangeNotifierProvider(create: (_) => PhoneAuthProvider()),
         ChangeNotifierProvider.value(value: notificationProvider,),
         ChangeNotifierProvider(create: (_) => OtpProvider(),),
         ChangeNotifierProvider(create: (_) => HealthRecordsProvider(),),

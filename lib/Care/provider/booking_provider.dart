@@ -24,8 +24,8 @@ class BookingProvider extends ChangeNotifier {
 
   List<Booking> get bookings => _bookings;
   List<Booking> get upcoming => _bookings;
-  List<Booking> get past => [];
-  List<Booking> get cancelled => [];
+  List<Booking> get past => _bookings;
+  List<Booking> get cancelled => _bookings;
 
 
 }
