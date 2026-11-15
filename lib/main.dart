@@ -83,7 +83,6 @@ class CareApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'quickcare',
-
         navigatorKey: appNavigatorKey,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

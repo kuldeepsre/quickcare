@@ -173,7 +173,16 @@ class LanguageProvider extends ChangeNotifier {
       'view_all':'View all',
       'next_scheduled':'Your next scheduled care',
       'confirmations':'We’ve received your request. You’ll get a confirmation and provider details shortly.',
-
+       'Overview':'Overview',
+       'Requests':'Requests',
+       'Trip':'Trip',
+       'Profile':'Profile',
+       'Dashboard':'Dashboard',
+       'Beds_capacity':'Beds Capacity',
+       'Admissions':'Admissions',
+       'Documents':'Documents',
+       'TestOrders':'Test orders',
+       'Samples':'Samples',
 
     },
 
