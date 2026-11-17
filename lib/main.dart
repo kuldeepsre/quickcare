@@ -7,12 +7,16 @@ import 'package:patientapp/Care/Screens/splash_screen.dart';
 import 'package:patientapp/Care/provider/FamilyProvider.dart';
 import 'package:patientapp/Care/provider/Phone_Auth_Provider.dart';
 import 'package:patientapp/Care/provider/ScheduleProvider.dart';
+import 'package:patientapp/Care/provider/StatProvider.dart';
+import 'package:patientapp/Care/provider/arive_provider.dart';
 import 'package:patientapp/Care/provider/booking_provider.dart';
+import 'package:patientapp/Care/provider/document_provider.dart';
 import 'package:patientapp/Care/provider/health_records_provider.dart';
 import 'package:patientapp/Care/provider/location_provider.dart';
 import 'package:patientapp/Care/provider/navigation_provider.dart';
 import 'package:patientapp/Care/provider/notification_provider.dart';
 import 'package:patientapp/Care/provider/otp_provider.dart';
+import 'package:patientapp/Care/provider/request_provider.dart';
 
 import 'package:patientapp/firebase_options.dart';
 import 'package:patientapp/utils/push_notification_service.dart';
@@ -69,7 +73,12 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => BookingProvider(),),
         ChangeNotifierProvider(create: (_) => LocationProvider()), // ADD THIS
         ChangeNotifierProvider(create: (_) => FamilyProvider()), // ADD THIS
-        ChangeNotifierProvider(create: (_) => ScheduleProvider()), // ADD THIS
+        ChangeNotifierProvider(create: (_) => ScheduleProvider()),
+        ChangeNotifierProvider(create: (_) => RequestProvider()),
+        ChangeNotifierProvider(create: (_) => DocumentProvider()),
+        ChangeNotifierProvider(create: (_) => StatProvider()),
+        ChangeNotifierProvider(create: (_) => ArrivalProvider()),
+        // ADD THIS
 
       ],
       child: const CareApp(),

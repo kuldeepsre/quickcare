@@ -44,22 +44,28 @@ class DriverOverviewScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFF0FDF4).withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(100), // Makes the ends fully curved
-
+                  color: const Color(0xFFE6F2EC),
+                  borderRadius: BorderRadius.circular(24),
                 ),
-                child: const Row(
+                child: Row(
                   children: [
-                    Icon(Icons.circle, color: Colors.green, size: 10),
-                    SizedBox(width: 8),
-                    Text(
-                      "Online · Accepting trips",
+                    Container(
+                      width: 8,
+                      height: 8,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFF10B981),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    const Text(
+                      'Online · Accepting trips',
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF166534),
+                        color: Color(0xFF0A5C36),
                         fontSize: 13,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ],
@@ -68,17 +74,20 @@ class DriverOverviewScreen extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF007A55),
+                  backgroundColor: const Color(0xFF0A5C36),
                   foregroundColor: Colors.white,
                   elevation: 0,
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(12),
                   ),
                 ),
                 child: const Text(
-                  "View live requests",
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                  'View Live Requests ',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ],

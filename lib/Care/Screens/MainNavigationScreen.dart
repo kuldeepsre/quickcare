@@ -9,6 +9,11 @@ import 'package:patientapp/Care/Screens/driver/document_tab.dart';
 import 'package:patientapp/Care/Screens/driver/driver_profile.dart';
 import 'package:patientapp/Care/Screens/driver/request_tab.dart';
 import 'package:patientapp/Care/Screens/hometab/my_profile.dart';
+import 'package:patientapp/Care/Screens/hospital/hospital_admission_tab.dart';
+import 'package:patientapp/Care/Screens/hospital/hospital_document_tab.dart';
+import 'package:patientapp/Care/Screens/hospital/hospital_overview_tab.dart';
+import 'package:patientapp/Care/Screens/hospital/hospital_profile_tab.dart';
+import 'package:patientapp/Care/Screens/hospital/hospital_request_tab.dart';
 import 'package:patientapp/Care/provider/navigation_provider.dart';
 import 'package:patientapp/Care/widget/LanguageSelectorWidget.dart';
 import 'package:patientapp/Care/widget/logout_dialog.dart';
@@ -80,12 +85,12 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           const DriverProfileScreen(),
         ];
       case PortalType.hospital:
-        return const [
-          Center(child: Text("Hospital Dashboard", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
-          Center(child: Text("Bed Capacity Management", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
-          Center(child: Text("Patient Admissions", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
-          Center(child: Text("Patient Admissions", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
-          Center(child: Text("Patient Admissions", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+        return [
+          HospitalOverviewScreen(),
+          HospitalRequestsScreen(),
+          HospitalAdmistionScreen(),
+          HospitalDocumentTab(),
+          HospitalProfileScreen()
         ];
       case PortalType.laboratory:
         return const [
@@ -100,7 +105,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         return [
           const PatientDashboardScreen(),
           const BookingsScreen(),
-          HealthRecordsScreen(),
+          const HealthRecordsScreen(),
           const FamilyScreen(),
           MyProfileScreen(),
         ];
@@ -159,9 +164,9 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         ];
       case PortalType.hospital:
         return  [
-          BottomNavigationBarItem(icon: Icon(Icons.dashboard), label: language.translate('Dashboard')),
-          BottomNavigationBarItem(icon: Icon(Icons.bed), label: language.translate('Beds_capacity')),
-          BottomNavigationBarItem(icon: Icon(Icons.people), label: language.translate('Admissions')),
+          BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: language.translate('Overview')),
+          BottomNavigationBarItem(icon: Icon(Icons.local_shipping_outlined), label: language.translate('Requests')),
+          BottomNavigationBarItem(icon: Icon(Icons.local_hospital_outlined), label: language.translate('Admissions')),
           BottomNavigationBarItem(icon: Icon(Icons.folder), label: language.translate('Documents')),
           BottomNavigationBarItem(icon: Icon(Icons.person), label:  language.translate('Profile')),
 
