@@ -10,6 +10,8 @@ import 'package:patientapp/Care/provider/ScheduleProvider.dart';
 import 'package:patientapp/Care/provider/StatProvider.dart';
 import 'package:patientapp/Care/provider/arive_provider.dart';
 import 'package:patientapp/Care/provider/booking_provider.dart';
+import 'package:patientapp/Care/provider/deriver_metric_provider.dart';
+import 'package:patientapp/Care/provider/deriver_request_provider.dart';
 import 'package:patientapp/Care/provider/document_provider.dart';
 import 'package:patientapp/Care/provider/health_records_provider.dart';
 import 'package:patientapp/Care/provider/location_provider.dart';
@@ -78,6 +80,8 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => DocumentProvider()),
         ChangeNotifierProvider(create: (_) => StatProvider()),
         ChangeNotifierProvider(create: (_) => ArrivalProvider()),
+        ChangeNotifierProvider(create: (_) => DeriverRequestProvider()),
+        ChangeNotifierProvider(create: (_) => MetricProvider()),
         // ADD THIS
 
       ],

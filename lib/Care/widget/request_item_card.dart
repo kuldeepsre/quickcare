@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:patientapp/utils/AppColors.dart';
 
 class RequestItemCard extends StatelessWidget {
   final String number;
@@ -121,6 +122,7 @@ class RequestItemCard extends StatelessWidget {
                   'Review',
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
+                    color: AppColors.primaryGreen,
                     fontSize: 13,
                   ),
                 ),

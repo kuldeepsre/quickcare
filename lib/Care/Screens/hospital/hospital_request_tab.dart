@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:patientapp/Care/provider/request_provider.dart';
 import 'package:patientapp/Care/widget/request_item_card.dart';
+import 'package:patientapp/utils/AppColors.dart';
 import 'package:provider/provider.dart';
 
 class HospitalRequestsScreen extends StatelessWidget {
@@ -231,9 +232,8 @@ class HospitalRequestsScreen extends StatelessWidget {
                   value: 0.92,
                   strokeWidth: 7,
                   backgroundColor: const Color(0xFFE6ECE9),
-                  valueColor: const AlwaysStoppedAnimation<Color>(
-                    Color(0xFF0B4F38),
-                  ),
+                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.primaryGreen),
+
                   strokeCap: StrokeCap.round,
                 ),
                 const Center(

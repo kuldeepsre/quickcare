@@ -4,6 +4,7 @@ import 'package:patientapp/Care/provider/StatProvider.dart';
 import 'package:patientapp/Care/provider/arive_provider.dart';
 import 'package:patientapp/Care/widget/_ArrivalCard.dart';
 import 'package:patientapp/Care/widget/list_item_card.dart';
+import 'package:patientapp/utils/AppColors.dart';
 import 'package:provider/provider.dart';
 class HospitalOverviewScreen extends StatelessWidget {
 const HospitalOverviewScreen({super.key});
@@ -262,9 +263,8 @@ const HospitalOverviewScreen({super.key});
                   value: 0.92,
                   strokeWidth: 7,
                   backgroundColor: const Color(0xFFE6ECE9),
-                  valueColor: const AlwaysStoppedAnimation<Color>(
-                    Color(0xFF0B4F38),
-                  ),
+                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.primaryGreen),
+
                   strokeCap: StrokeCap.round,
                 ),
                 const Center(

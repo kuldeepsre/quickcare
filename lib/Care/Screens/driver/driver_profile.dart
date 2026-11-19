@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class DriverProfileScreen extends StatefulWidget {
   const DriverProfileScreen({super.key});
@@ -12,6 +15,22 @@ class DriverProfileScreen extends StatefulWidget {
 class _DriverProfileScreenState extends State<DriverProfileScreen> {
   String? _selectedFileName;
 
+  File? _imageFile;
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> _pickImage(ImageSource source) async {
+    final XFile? picked = await _picker.pickImage(
+      source: source,
+      maxWidth: 800,
+      maxHeight: 800,
+      imageQuality: 85,
+    );
+    if (picked != null) {
+      setState(() {
+        _imageFile = File(picked.path);
+      });
+    }
+  }
   Future<void> _pickFile() async {
     try {
       FilePickerResult? result = await FilePicker.pickFiles(
@@ -86,6 +105,47 @@ class _DriverProfileScreenState extends State<DriverProfileScreen> {
       ),
     );
   }
+  void _showPickerOptions() {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return SafeArea(
+          child: Wrap(
+            children: [
+              ListTile(
+                leading: const Icon(Icons.camera_alt_outlined),
+                title: const Text('Take Photo'),
+                onTap: () {
+                  Navigator.pop(context);
+                  _pickImage(ImageSource.camera);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.photo_library_outlined),
+                title: const Text('Choose from Gallery'),
+                onTap: () {
+                  Navigator.pop(context);
+                  _pickImage(ImageSource.gallery);
+                },
+              ),
+              if (_imageFile != null)
+                ListTile(
+                  leading: const Icon(Icons.delete_outline, color: Colors.red),
+                  title: const Text('Remove Photo', style: TextStyle(color: Colors.red)),
+                  onTap: () {
+                    Navigator.pop(context);
+                    setState(() => _imageFile = null);
+                  },
+                ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   Widget _buildMainProfileCard() {
     return Container(
@@ -110,31 +170,43 @@ class _DriverProfileScreenState extends State<DriverProfileScreen> {
                     decoration: BoxDecoration(
                       color: const Color(0xFF0B4F38),
                       borderRadius: BorderRadius.circular(16),
+                      image: _imageFile != null
+                          ? DecorationImage(
+                        image: FileImage(_imageFile!),
+                        fit: BoxFit.cover,
+                      )
+                          : null,
                     ),
                     alignment: Alignment.center,
-                    child: const Text(
-                      'RV',
+                    child: _imageFile == null
+                        ? const Text(
+                      'ML',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w700,
                         fontSize: 20,
                       ),
-                    ),
+                    )
+                        : null,
                   ),
                   Positioned(
                     bottom: -2,
                     right: -2,
-                    child: Container(
-                      padding: const EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                        border: Border.all(color: const Color(0xFFE6ECE9)),
-                      ),
-                      child: const Icon(
-                        Icons.camera_alt_outlined,
-                        size: 13,
-                        color: Color(0xFF0B4F38),
+                    child: GestureDetector(
+
+                      onTap: _showPickerOptions,
+                      child: Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                          border: Border.all(color: const Color(0xFFE6ECE9)),
+                        ),
+                        child: const Icon(
+                          Icons.camera_alt_outlined,
+                          size: 13,
+                          color: Color(0xFF0B4F38),
+                        ),
                       ),
                     ),
                   ),
@@ -146,7 +218,7 @@ class _DriverProfileScreenState extends State<DriverProfileScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'Rahul Verma',
+                      'MediLabs Diagnostics',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
@@ -155,7 +227,7 @@ class _DriverProfileScreenState extends State<DriverProfileScreen> {
                     ),
                     const SizedBox(height: 2),
                     const Text(
-                      'Driver · AMB-118',
+                      'Partner · HSP-024',
                       style: TextStyle(
                         fontSize: 13,
                         color: Color(0xFF667871),

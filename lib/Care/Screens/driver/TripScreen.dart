@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:patientapp/Care/provider/LanguageProvider.dart';
+import 'package:patientapp/Care/provider/deriver_request_provider.dart';
+import 'package:patientapp/Care/provider/navigation_provider.dart';
+import 'package:patientapp/Care/widget/request_card.dart';
+import 'package:patientapp/utils/AppColors.dart';
 import 'package:provider/provider.dart';
 
 class TripScreen extends StatelessWidget {
@@ -86,54 +90,6 @@ class TripScreen extends StatelessWidget {
           const SizedBox(height: 20),
 
           // Metrics Summary Cards
-          Row(
-            children: [
-              Expanded(
-                child: _buildMetricCard(
-                  icon: Icons.monitor_heart_outlined,
-                  iconColor: Colors.teal,
-                  title: "3",
-                  subtitle: "Trips today",
-                  caption: "+1 from yesterday",
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: _buildMetricCard(
-                  icon: Icons.access_time_outlined,
-                  iconColor: Colors.blue,
-                  title: "24 min",
-                  subtitle: "Avg. response",
-                  caption: "4 min faster",
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Row(
-            children: [
-              Expanded(
-                child: _buildMetricCard(
-                  icon: Icons.verified_user_outlined,
-                  iconColor: Colors.purple,
-                  title: "4.9",
-                  subtitle: "Driver rating",
-                  caption: "128 reviews",
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: _buildMetricCard(
-                  icon: Icons.description_outlined,
-                  iconColor: Colors.amber.shade800,
-                  title: "₹3,840",
-                  subtitle: "This week",
-                  caption: "12 completed trips",
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 24),
 
           // Nearby Requests Section Header
           Row(
@@ -169,35 +125,42 @@ class TripScreen extends StatelessWidget {
           const SizedBox(height: 12),
 
           // Request Card Items
-          _buildRequestCard(
-            indexTag: "01",
-            title: "Emergency pickup",
-            location: "100 Feet Road, Indiranagar",
-            distanceAndEta: "1.2 km away · 3 min",
-            badgeText: "Critical",
-            badgeColor: Colors.red.shade50,
-            textColor: Colors.red,
+          Consumer<DeriverRequestProvider>(
+            builder: (context, provider, child) {
+              if (provider.requests.isEmpty) {
+                return const Center(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20),
+                    child: Text("No requests available"),
+                  ),
+                );
+              }
+
+              return ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: provider.requests.length,
+                separatorBuilder: (context, index) => const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  child: Divider(
+                    height: 1,
+                    thickness: 1,
+                    color: Color(0xFFEEEEEE),
+                  ),
+                ),
+                itemBuilder: (context, index) {
+                  final item = provider.requests[index];
+                  return RequestCard(
+                    item: item,
+                    onTap: () {
+                      print(item.title);
+                    },
+                  );
+                },
+              );
+            },
           ),
-          const SizedBox(height: 10),
-          _buildRequestCard(
-            indexTag: "02",
-            title: "Hospital transfer",
-            location: "Manipal Hospital → CityCare",
-            distanceAndEta: "4.8 km away · 12 min",
-            badgeText: "Scheduled",
-            badgeColor: Colors.blue.shade50,
-            textColor: Colors.blue,
-          ),
-          const SizedBox(height: 10),
-          _buildRequestCard(
-            indexTag: "03",
-            title: "Discharge pickup",
-            location: "St. Martha’s Hospital",
-            distanceAndEta: "6.1 km away · 16 min",
-            badgeText: "Standard",
-            badgeColor: Colors.grey.shade100,
-            textColor: Colors.grey.shade700,
-          ),
+
           const SizedBox(height: 24),
 
           // Profile Readiness Card
@@ -220,7 +183,7 @@ class TripScreen extends StatelessWidget {
                         value: 0.92,
                         strokeWidth: 6,
                         backgroundColor: Color(0xFFF0FDF4),
-                        valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF007A55)),
+                        valueColor: AlwaysStoppedAnimation<Color>(AppColors.primaryGreen),
                       ),
                     ),
                     const Text(
@@ -244,7 +207,9 @@ class TripScreen extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.read<NavigationProvider>().changePage(4);
+                    },
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 12),
                       side: BorderSide(color: Colors.grey.shade300),
