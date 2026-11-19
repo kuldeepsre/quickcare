@@ -153,7 +153,7 @@ class RequestsDashboardScreen extends StatelessWidget {
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
                 child: const Text(
-                  'View all',
+                  'View all >',
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 13.5,

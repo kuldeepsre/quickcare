@@ -14,6 +14,11 @@ import 'package:patientapp/Care/Screens/hospital/hospital_document_tab.dart';
 import 'package:patientapp/Care/Screens/hospital/hospital_overview_tab.dart';
 import 'package:patientapp/Care/Screens/hospital/hospital_profile_tab.dart';
 import 'package:patientapp/Care/Screens/hospital/hospital_request_tab.dart';
+import 'package:patientapp/Care/Screens/labarotry/lab_document_tab.dart';
+import 'package:patientapp/Care/Screens/labarotry/lab_profile_tab.dart';
+import 'package:patientapp/Care/Screens/labarotry/over_view_tab.dart';
+import 'package:patientapp/Care/Screens/labarotry/sample_tab.dart';
+import 'package:patientapp/Care/Screens/labarotry/test_oder_tab.dart';
 import 'package:patientapp/Care/provider/navigation_provider.dart';
 import 'package:patientapp/Care/widget/LanguageSelectorWidget.dart';
 import 'package:patientapp/Care/widget/logout_dialog.dart';
@@ -86,19 +91,19 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         ];
       case PortalType.hospital:
         return [
-          HospitalOverviewScreen(),
-          HospitalRequestsScreen(),
-          HospitalAdmistionScreen(),
-          HospitalDocumentTab(),
-          HospitalProfileScreen()
+          const HospitalOverviewScreen(),
+          const HospitalRequestsScreen(),
+          const  HospitalAdmistionScreen(),
+          const HospitalDocumentTab(),
+          const  HospitalProfileScreen()
         ];
       case PortalType.laboratory:
-        return const [
-          Center(child: Text("Sample Collections", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
-          Center(child: Text("Reports & Diagnostics", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
-          Center(child: Text("Reports & Diagnostics", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
-          Center(child: Text("Reports & Diagnostics", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
-          Center(child: Text("Reports & Diagnostics", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+        return  [
+          const LabOverviewScreen(),
+          const TestOderTab(),
+          const SampleTab(),
+          const LabDocumentTab(),
+          const LabProfileTab(),
         ];
       case PortalType.patient:
       default:
@@ -107,7 +112,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           const BookingsScreen(),
           const HealthRecordsScreen(),
           const FamilyScreen(),
-          MyProfileScreen(),
+          const MyProfileScreen(),
         ];
     }
   }
@@ -254,7 +259,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                   fontSize: 18,
                 ),
               ),
-              const Spacer(),
+    /*        const Spacer(),
               Consumer<LanguageProvider>(
                 builder: (context, provider, child) {
                   return LanguageSelectorWidget(
@@ -263,7 +268,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                     onNotificationTap: () {},
                   );
                 },
-              ),
+              ),*/
             ],
           ),
         ),

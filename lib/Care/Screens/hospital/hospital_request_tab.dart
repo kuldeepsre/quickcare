@@ -132,40 +132,46 @@ class HospitalRequestsScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Requests',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xFF102A21),
+              Expanded(
+                flex: 3,
+                child: const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Requests',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF102A21),
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 2),
-                  Text(
-                    'Manage requests for your hospital workspace',
-                    style: TextStyle(
-                      fontSize: 12.5,
-                      color: Color(0xFF667871),
+                    SizedBox(height: 2),
+                    Text(
+                      'Manage requests for your hospital workspace',
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        color: Color(0xFF667871),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              TextButton(
-                onPressed: () {},
-                style: TextButton.styleFrom(
-                  foregroundColor: const Color(0xFF0B4F38),
-                  padding: EdgeInsets.zero,
-                  minimumSize: Size.zero,
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ],
                 ),
-                child: const Text(
-                  'View all',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13.5,
+              ),
+              Expanded(
+                flex: 1,
+                child: TextButton(
+                  onPressed: () {},
+                  style: TextButton.styleFrom(
+                    foregroundColor: const Color(0xFF0B4F38),
+                    padding: EdgeInsets.zero,
+                    minimumSize: Size.zero,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
+                  child: const Text(
+                    'View all >',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 13.5,
+                    ),
                   ),
                 ),
               ),
@@ -346,7 +352,7 @@ class HospitalRequestsScreen extends StatelessWidget {
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.phone_in_talk_outlined, size: 18),
+                  Icon(Icons.call, size: 18),
 
                 ],
               ),

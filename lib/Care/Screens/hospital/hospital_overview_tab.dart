@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:patientapp/Care/provider/StatProvider.dart';
 import 'package:patientapp/Care/provider/arive_provider.dart';
 import 'package:patientapp/Care/widget/_ArrivalCard.dart';
+import 'package:patientapp/Care/widget/list_item_card.dart';
 import 'package:provider/provider.dart';
 class HospitalOverviewScreen extends StatelessWidget {
 const HospitalOverviewScreen({super.key});
@@ -120,7 +121,6 @@ const HospitalOverviewScreen({super.key});
       ],
     );
   }
-
   Widget _buildStatCards() {
     return Consumer<StatProvider>(
       builder: (context, statProvider, child) {
@@ -132,7 +132,7 @@ const HospitalOverviewScreen({super.key});
             final card = statProvider.statCards[index];
             return Padding(
               padding: const EdgeInsets.only(bottom: 12),
-              child: _StatCard(
+              child: ListItemCard(
                 icon: card.icon,
                 iconColor: card.iconColor,
                 iconBgColor: card.iconBgColor,
@@ -146,7 +146,6 @@ const HospitalOverviewScreen({super.key});
       },
     );
   }
-
   Widget _buildAmbulanceArrivalsCard() {
     return Container(
       padding: const EdgeInsets.all(20),
@@ -395,77 +394,4 @@ const HospitalOverviewScreen({super.key});
   }
 }
 
-class _StatCard extends StatelessWidget {
-  final IconData icon;
-  final Color iconColor;
-  final Color iconBgColor;
-  final String count;
-  final String title;
-  final String subtitle;
-
-  const _StatCard({
-    required this.icon,
-    required this.iconColor,
-    required this.iconBgColor,
-    required this.count,
-    required this.title,
-    required this.subtitle,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: iconBgColor,
-              borderRadius: BorderRadius.circular(14),
-            ),
-            child: Icon(icon, color: iconColor, size: 22),
-          ),
-          const SizedBox(width: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                count,
-                style: const TextStyle(
-                  color: Color(0xFF0F172A),
-                  fontSize: 22,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                title,
-                style: const TextStyle(
-                  color: Color(0xFF1E293B),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                subtitle,
-                style: const TextStyle(
-                  color: Color(0xFF64748B),
-                  fontSize: 12,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
 

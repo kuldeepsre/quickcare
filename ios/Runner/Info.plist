@@ -4,6 +4,10 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSCameraUsageDescription</key>
+    <string>We need camera access to update your profile photo</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>We need photo library access to update your profile photo</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
     <string>We need your location to show nearby hospitals and dispatch emergency care.</string>
     <key>NSLocationAlwaysUsageDescription</key>
