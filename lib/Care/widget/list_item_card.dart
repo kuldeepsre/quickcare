@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:patientapp/utils/AppColors.dart';
 
 class ListItemCard extends StatelessWidget {
   final IconData icon;
@@ -28,6 +29,8 @@ class ListItemCard extends StatelessWidget {
         border: Border.all(color: const Color(0xFFE2E8F0)),
       ),
       child: Row(
+        mainAxisAlignment:MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             width: 48,
@@ -55,7 +58,7 @@ class ListItemCard extends StatelessWidget {
                 title,
                 style: const TextStyle(
                   color: Color(0xFF1E293B),
-                  fontSize: 14,
+                  fontSize: 12,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -67,6 +70,7 @@ class ListItemCard extends StatelessWidget {
                   fontSize: 12,
                 ),
               ),
+
             ],
           ),
         ],

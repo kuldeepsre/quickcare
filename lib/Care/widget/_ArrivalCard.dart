@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:patientapp/utils/AppColors.dart';
 
 class ArrivalCard extends StatelessWidget {
   final String indexNumber;
@@ -109,6 +110,31 @@ class ArrivalCard extends StatelessWidget {
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
                     color: Color(0xFF0A5C36),
+                  ),
+                ),
+                const SizedBox(height: 4),
+                OutlinedButton(
+                  onPressed: () {},
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: const Color(0xFF102A21),
+                    side: const BorderSide(color: Color(0xFFD5DFDB)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 9,
+                    ),
+                    minimumSize: Size.zero,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
+                  child: const Text(
+                    'Open',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.primaryGreen,
+                      fontSize: 13,
+                    ),
                   ),
                 ),
               ],

@@ -22,7 +22,7 @@ class LanguageSelectorWidget extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
+    /*    Container(
           padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
           decoration: BoxDecoration(
             color: Colors.grey.shade100,
@@ -63,7 +63,7 @@ class LanguageSelectorWidget extends StatelessWidget {
                 }).toList(),
           ),
         ),
-        const SizedBox(width: 6),
+        const SizedBox(width: 6),*/
         Consumer<NotificationProvider>(
           builder: (context, provider, child) {
             final int count = provider.unreadCount;

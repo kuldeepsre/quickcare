@@ -2,14 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:patientapp/Care/provider/StatProvider.dart';
 import 'package:patientapp/Care/provider/arive_provider.dart';
+import 'package:patientapp/Care/provider/navigation_provider.dart';
 import 'package:patientapp/Care/widget/_ArrivalCard.dart';
 import 'package:patientapp/Care/widget/list_item_card.dart';
 import 'package:patientapp/utils/AppColors.dart';
 import 'package:provider/provider.dart';
 
-class LabOverviewScreen extends StatelessWidget {
+class LabOverviewScreen extends StatefulWidget {
   const LabOverviewScreen({super.key});
 
+  @override
+  State<LabOverviewScreen> createState() => _LabOverviewScreenState();
+}
+
+class _LabOverviewScreenState extends State<LabOverviewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,7 +107,9 @@ class LabOverviewScreen extends StatelessWidget {
               ),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                context.read<NavigationProvider>().changePage(1);
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF0A5C36),
                 foregroundColor: Colors.white,
@@ -129,22 +137,25 @@ class LabOverviewScreen extends StatelessWidget {
   Widget _buildStatCards() {
     return Consumer<StatProvider>(
       builder: (context, statProvider, child) {
-        return ListView.builder(
+        return GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemCount: statProvider.statCards.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            childAspectRatio: 1.5, // width / height - increase for shorter cards, decrease for taller
+          ),
           itemBuilder: (context, index) {
             final card = statProvider.statCards[index];
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 12),
-              child: ListItemCard(
-                icon: card.icon,
-                iconColor: card.iconColor,
-                iconBgColor: card.iconBgColor,
-                count: card.count,
-                title: card.title,
-                subtitle: card.subtitle,
-              ),
+            return ListItemCard(
+              icon: card.icon,
+              iconColor: card.iconColor,
+              iconBgColor: card.iconBgColor,
+              count: card.count,
+              title: card.title,
+              subtitle: card.subtitle,
             );
           },
         );
@@ -310,7 +321,9 @@ class LabOverviewScreen extends StatelessWidget {
           ),
           const SizedBox(height: 18),
           OutlinedButton(
-            onPressed: () {},
+            onPressed: () {
+              context.read<NavigationProvider>().changePage(4);
+            },
             style: OutlinedButton.styleFrom(
               foregroundColor: const Color(0xFF102A21),
               side: const BorderSide(color: Color(0xFFD5DFDB)),

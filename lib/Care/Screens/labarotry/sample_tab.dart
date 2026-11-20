@@ -1,13 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:patientapp/Care/provider/navigation_provider.dart';
 import 'package:patientapp/Care/provider/request_provider.dart';
 import 'package:patientapp/Care/widget/request_item_card.dart';
 import 'package:patientapp/utils/AppColors.dart';
 import 'package:provider/provider.dart';
 
-class SampleTab extends StatelessWidget {
+class SampleTab extends StatefulWidget {
   const SampleTab({super.key});
+  @override
+  State<SampleTab> createState() => _SampleTabState();
 
+}
+
+class _SampleTabState extends State<SampleTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,7 +82,9 @@ class SampleTab extends StatelessWidget {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.read<NavigationProvider>().changePage(1);
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF0A5C36),
                       foregroundColor: Colors.white,
@@ -117,7 +125,6 @@ class SampleTab extends StatelessWidget {
       ),
     );
   }
-
 
   Widget _buildRequestsContainer() {
     return Container(
@@ -269,7 +276,9 @@ class SampleTab extends StatelessWidget {
           ),
           const SizedBox(height: 18),
           OutlinedButton(
-            onPressed: () {},
+            onPressed: () {
+              context.read<NavigationProvider>().changePage(4);
+            },
             style: OutlinedButton.styleFrom(
               foregroundColor: const Color(0xFF102A21),
               side: const BorderSide(color: Color(0xFFD5DFDB)),

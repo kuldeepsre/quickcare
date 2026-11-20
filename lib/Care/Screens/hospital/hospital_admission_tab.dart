@@ -1,13 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:patientapp/Care/provider/navigation_provider.dart';
 import 'package:patientapp/Care/provider/request_provider.dart';
 import 'package:patientapp/Care/widget/request_item_card.dart';
 import 'package:patientapp/utils/AppColors.dart';
 import 'package:provider/provider.dart';
 
-class HospitalAdmistionScreen extends StatelessWidget {
+class HospitalAdmistionScreen extends StatefulWidget {
   const HospitalAdmistionScreen({super.key});
 
+  @override
+  State<HospitalAdmistionScreen> createState() => _HospitalAdmistionScreenState();
+}
+
+class _HospitalAdmistionScreenState extends State<HospitalAdmistionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,7 +123,6 @@ class HospitalAdmistionScreen extends StatelessWidget {
       ),
     );
   }
-
 
   Widget _buildRequestsContainer() {
     return Container(
@@ -269,7 +274,9 @@ class HospitalAdmistionScreen extends StatelessWidget {
           ),
           const SizedBox(height: 18),
           OutlinedButton(
-            onPressed: () {},
+            onPressed: () {
+              context.read<NavigationProvider>().changePage(4);
+            },
             style: OutlinedButton.styleFrom(
               foregroundColor: const Color(0xFF102A21),
               side: const BorderSide(color: Color(0xFFD5DFDB)),

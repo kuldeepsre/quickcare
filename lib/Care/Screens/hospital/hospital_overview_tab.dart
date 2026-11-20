@@ -2,12 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:patientapp/Care/provider/StatProvider.dart';
 import 'package:patientapp/Care/provider/arive_provider.dart';
+import 'package:patientapp/Care/provider/navigation_provider.dart';
 import 'package:patientapp/Care/widget/_ArrivalCard.dart';
 import 'package:patientapp/Care/widget/list_item_card.dart';
 import 'package:patientapp/utils/AppColors.dart';
 import 'package:provider/provider.dart';
-class HospitalOverviewScreen extends StatelessWidget {
+class HospitalOverviewScreen extends StatefulWidget {
 const HospitalOverviewScreen({super.key});
+
+  @override
+  State<HospitalOverviewScreen> createState() => _HospitalOverviewScreenState();
+}
+
+class _HospitalOverviewScreenState extends State<HospitalOverviewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,7 +106,9 @@ const HospitalOverviewScreen({super.key});
               ),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                context.read<NavigationProvider>().changePage(1);
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF0A5C36),
                 foregroundColor: Colors.white,
@@ -122,31 +131,36 @@ const HospitalOverviewScreen({super.key});
       ],
     );
   }
+
   Widget _buildStatCards() {
     return Consumer<StatProvider>(
       builder: (context, statProvider, child) {
-        return ListView.builder(
+        return GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemCount: statProvider.statCards.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            childAspectRatio: 1.5, // width / height - increase for shorter cards, decrease for taller
+          ),
           itemBuilder: (context, index) {
             final card = statProvider.statCards[index];
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 12),
-              child: ListItemCard(
-                icon: card.icon,
-                iconColor: card.iconColor,
-                iconBgColor: card.iconBgColor,
-                count: card.count,
-                title: card.title,
-                subtitle: card.subtitle,
-              ),
+            return ListItemCard(
+              icon: card.icon,
+              iconColor: card.iconColor,
+              iconBgColor: card.iconBgColor,
+              count: card.count,
+              title: card.title,
+              subtitle: card.subtitle,
             );
           },
         );
       },
     );
   }
+
   Widget _buildAmbulanceArrivalsCard() {
     return Container(
       padding: const EdgeInsets.all(20),
@@ -242,6 +256,7 @@ const HospitalOverviewScreen({super.key});
       ),
     );
   }
+
   Widget _buildProfileReadinessCard() {
     return Container(
       width: double.infinity,
@@ -300,7 +315,9 @@ const HospitalOverviewScreen({super.key});
           ),
           const SizedBox(height: 18),
           OutlinedButton(
-            onPressed: () {},
+            onPressed: () {
+              context.read<NavigationProvider>().changePage(4);
+            },
             style: OutlinedButton.styleFrom(
               foregroundColor: const Color(0xFF102A21),
               side: const BorderSide(color: Color(0xFFD5DFDB)),
@@ -318,6 +335,7 @@ const HospitalOverviewScreen({super.key});
       ),
     );
   }
+
   Widget _buildPartnerSupportCard() {
     return Container(
       decoration: BoxDecoration(

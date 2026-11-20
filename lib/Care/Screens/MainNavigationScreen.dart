@@ -259,7 +259,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                   fontSize: 18,
                 ),
               ),
-    /*        const Spacer(),
+            const Spacer(),
               Consumer<LanguageProvider>(
                 builder: (context, provider, child) {
                   return LanguageSelectorWidget(
@@ -268,7 +268,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                     onNotificationTap: () {},
                   );
                 },
-              ),*/
+              ),
             ],
           ),
         ),
@@ -392,28 +392,31 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                               });
                               context.read<NavigationProvider>().changePage(0);
                             },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                              decoration: BoxDecoration(
-                                color: isSelected ? Colors.grey.shade100 : Colors.transparent,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Row(
-                                children: [
-                                  Icon(info['icon'] as IconData, size: 16, color: isSelected ? darkGreen : Colors.black54),
-                                  const SizedBox(width: 10),
-                                  Expanded(
-                                    child: Text(
-                                      info['title'] as String,
-                                      style: TextStyle(
-                                        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                                        fontSize: 12,
-                                        color: isSelected ? darkGreen : Colors.black87,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 4.0,vertical: 4),
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                                decoration: BoxDecoration(
+                                  color: isSelected ?  const Color(0xFFE9F2EF) : Colors.transparent,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Icon(info['icon'] as IconData, size: 16, color: isSelected ? darkGreen : Colors.black54),
+                                    const SizedBox(width: 10),
+                                    Expanded(
+                                      child: Text(
+                                        info['title'] as String,
+                                        style: TextStyle(
+                                          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                          fontSize: 12,
+                                          color: isSelected ? darkGreen : Colors.black87,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  if (isSelected) const Icon(Icons.verified_user, size: 14, color: Colors.green),
-                                ],
+                                    if (isSelected) const Icon(Icons.verified_user, size: 14, color: AppColors.primaryGreen),
+                                  ],
+                                ),
                               ),
                             ),
                           );
@@ -490,7 +493,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               subtitle: Text(currentInfo['sub'] as String, style: const TextStyle(fontSize: 10)),
             ),
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 8),
               decoration: BoxDecoration(
                 color: AppColors.surfaceWhite,
                 borderRadius: BorderRadius.circular(12),

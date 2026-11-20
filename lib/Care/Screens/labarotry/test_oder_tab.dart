@@ -1,13 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:patientapp/Care/provider/navigation_provider.dart';
 import 'package:patientapp/Care/provider/request_provider.dart';
 import 'package:patientapp/Care/widget/request_item_card.dart';
 import 'package:patientapp/utils/AppColors.dart';
 import 'package:provider/provider.dart';
 
-class TestOderTab extends StatelessWidget {
+class TestOderTab extends StatefulWidget {
   const TestOderTab({super.key});
 
+  @override
+  State<TestOderTab> createState() => _TestOderTabState();
+}
+
+class _TestOderTabState extends State<TestOderTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,7 +123,6 @@ class TestOderTab extends StatelessWidget {
       ),
     );
   }
-
 
   Widget _buildRequestsContainer() {
     return Container(
@@ -269,7 +274,9 @@ class TestOderTab extends StatelessWidget {
           ),
           const SizedBox(height: 18),
           OutlinedButton(
-            onPressed: () {},
+            onPressed: () {
+              context.read<NavigationProvider>().changePage(4);
+            },
             style: OutlinedButton.styleFrom(
               foregroundColor: const Color(0xFF102A21),
               side: const BorderSide(color: Color(0xFFD5DFDB)),
